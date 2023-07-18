@@ -24,16 +24,24 @@ const handleAddTask = () => {
     state.hasTask = false;
   }};
 
-watch(() => state.tasks, (newTask) => {
-  localStorage.setItem('task', JSON.stringify(newTask))
+watch(() => state.tasks, (newTasks) => {
+  localStorage.setItem('tasks', JSON.stringify(JSON.parse(JSON.stringify(newTasks)))),
+  state.tasks.forEach(task => {
+    if(task.content === ""){
+      alert("Task can not be empty!")
+      return task.content = "Type something here"
+    }
+});
 }, { deep: true });
 
 watch(() => state.completeTasks, () => {
   localStorage.setItem('completeTasks', state.completeTasks)
+  state.completeTasks < 0 ? state.completeTasks = 0 : state.completeTasks
 });
 
 watch(() => state.totalTasks, () => {
   localStorage.setItem('totalTasks', state.totalTasks);
+  state.totalTasks < 0 ? state.totalTasks = 0 : state.totalTasks
 });
 
 const handleCompleteTask = (task) => {
@@ -43,7 +51,8 @@ const handleCompleteTask = (task) => {
     ++state.completeTasks;
   } else {
     --state.completeTasks;
-  }};
+  }
+};
 
 const deleteTask = (index, task) => {
   state.tasks.splice(index, 1);
@@ -53,10 +62,11 @@ const deleteTask = (index, task) => {
     --state.totalTasks;
   }else{
     --state.totalTasks
-  }};
+  }
+};
 
 onBeforeMount(() => {
-  const storedTasks = localStorage.getItem('task');
+  const storedTasks = localStorage.getItem('tasks');
   const storedCompleteTasks = localStorage.getItem('completeTasks');
   const storedTotalTasks = localStorage.getItem('totalTasks');
 
@@ -69,6 +79,7 @@ onBeforeMount(() => {
     state.totalTasks = storedTotalTasks
   }
 });
+
 import { useTheme } from 'vuetify'
 
 const theme = useTheme();
@@ -113,8 +124,9 @@ const toggleTheme = () => theme.global.name.value = theme.global.current.value.d
               clearable
               class="mx-4"
               size="60"
+              @keypress.enter.prevent="handleAddTask"
               v-model="state.task"
-              @keypress.enter.prevent="handleAddTask">
+              >
             </v-text-field>
            <v-btn 
            variant="text"

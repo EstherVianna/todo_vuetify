@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 defineProps({
   task:{
@@ -9,7 +9,6 @@ defineProps({
 });
 
 const labelRef = ref(null);
-
 const focusLabel= () => {
     labelRef.value.focus();
 };
@@ -18,7 +17,6 @@ const focusLabel= () => {
 <template>
 <v-list 
  class="d-flex justify-center align-center"
- 
  density="compact"
 >
     <v-checkbox 
@@ -26,7 +24,7 @@ const focusLabel= () => {
      v-model="task.complete"
      @change="$emit('add-complete-task', task)">
     </v-checkbox>
-    <label ref="labelRef">
+    <label ref="labelRef" >
         <v-text-field  type="text"
          size="40"
          variant="outlined"

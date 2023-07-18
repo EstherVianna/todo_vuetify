@@ -1,3 +1,7 @@
+<script setup>
+import HomePage from '@/Views/HomePage.vue'
+
+</script>
 <template>
   <v-app class="bg-secondary">
     <v-main>
@@ -6,7 +10,4 @@
   </v-app>
 </template>
 
-<script setup>
-import HomePage from '@/Views/HomePage.vue'
 
-</script>
