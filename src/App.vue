@@ -9,5 +9,3 @@ import HomePage from '@/Views/HomePage.vue'
     </v-main>
   </v-app>
 </template>
-
-

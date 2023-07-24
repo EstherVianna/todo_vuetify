@@ -73,9 +73,6 @@ onBeforeMount(() => {
   if (storedTasks !== null) {
     state.tasks = JSON.parse(storedTasks)
     state.completeTasks = parseInt(storedCompleteTasks)
-    if (storedCompleteTasks < 0) {
-      storedCompleteTasks = 0;
-    }
     state.totalTasks = storedTotalTasks
   }
 });
